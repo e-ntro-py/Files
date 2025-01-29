@@ -1,4 +1,4 @@
-﻿<!--  Copyright (c) 2023 Files Community. Licensed under the MIT License. See the LICENSE.  -->
+﻿<!--  Copyright (c) Files Community. Licensed under the MIT License.  -->
 <vm:BasePropertiesPage
 	x:Class="Files.App.Views.Properties.DetailsPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -15,7 +15,7 @@
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="ms-appx:///ResourceDictionaries/PropertiesStyles.xaml" />
+				<ResourceDictionary Source="ms-appx:///Styles/PropertiesStyles.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 			<toolkitconverters:BoolNegationConverter x:Key="BoolNegationConverter" />
 		</ResourceDictionary>
@@ -87,12 +87,24 @@
 												Text="{x:Bind Name, Mode=OneWay}"
 												TextWrapping="Wrap" />
 
+											<!--  Read Only Value Text Block  -->
+											<TextBlock
+												x:Name="PropertyValueTemplateTextBlock"
+												Grid.Row="0"
+												Grid.Column="1"
+												Padding="12"
+												HorizontalAlignment="Stretch"
+												x:Load="{x:Bind IsReadOnly, Mode=OneWay}"
+												IsTextSelectionEnabled="True"
+												Text="{x:Bind ValueText, Mode=TwoWay}" />
+
+											<!--  Edit Value Text Box  -->
 											<TextBox
 												x:Name="PropertyValueTemplateTextBox"
 												Grid.Row="0"
 												Grid.Column="1"
 												HorizontalAlignment="Stretch"
-												IsReadOnly="{x:Bind IsReadOnly, Mode=OneWay}"
+												x:Load="{x:Bind IsReadOnly, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}"
 												PlaceholderText="{x:Bind PlaceholderText, Mode=OneWay}"
 												Style="{StaticResource PropertyValueTextBox}"
 												Text="{x:Bind ValueText, Mode=TwoWay}" />
